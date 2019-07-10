@@ -11,6 +11,8 @@ namespace EfSamurai.Data
         {
             optionsBuilder.UseSqlServer(@"Data Source=.\SQLEXPRESS;Initial Catalog=Samurai;Integrated Security=True;Pooling=False");
         }
+
+     
     }
     }
 
