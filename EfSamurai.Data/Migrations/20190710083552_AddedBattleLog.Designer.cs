@@ -4,39 +4,22 @@ using EfSamurai.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EfSamurai.Data.Migrations
 {
     [DbContext(typeof(SamuraiContext))]
-    partial class SamuraiContextModelSnapshot : ModelSnapshot
+    [Migration("20190710083552_AddedBattleLog")]
+    partial class AddedBattleLog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("EfSamurai.Domain.BattleEvent", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("BattleLogId");
-
-                    b.Property<string>("Descripton");
-
-                    b.Property<string>("Text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BattleLogId");
-
-                    b.ToTable("BattleEvent");
-                });
 
             modelBuilder.Entity("EfSamurai.Domain.BattleLog", b =>
                 {
@@ -129,13 +112,6 @@ namespace EfSamurai.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("War");
-                });
-
-            modelBuilder.Entity("EfSamurai.Domain.BattleEvent", b =>
-                {
-                    b.HasOne("EfSamurai.Domain.BattleLog")
-                        .WithMany("BattleEvent")
-                        .HasForeignKey("BattleLogId");
                 });
 
             modelBuilder.Entity("EfSamurai.Domain.Quote", b =>
