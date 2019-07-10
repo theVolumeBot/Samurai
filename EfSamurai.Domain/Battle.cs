@@ -4,10 +4,10 @@ using System.Text;
 
 namespace EfSamurai.Domain
 {
-   public class War
+   public class Battle
     {
 
-        public War()
+        public Battle()
         {
             SamuraiBattle = new HashSet<SamuraiBattle>();
   
@@ -19,6 +19,8 @@ namespace EfSamurai.Domain
         public bool Brutal { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndTime { get; set; }
+        public BattleLog BattleLog { get; set; }
+
 
         public virtual ICollection<SamuraiBattle> SamuraiBattle { get; set; }
     }

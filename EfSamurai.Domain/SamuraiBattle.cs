@@ -8,8 +8,8 @@ namespace EfSamurai.Domain
     {
         public int Id { get; set; }
         public Samurai Samurai { get; set; }
-        public War War { get; set; }
-        public BattleLog BattleLog { get; set; }
+        public Battle Battle { get; set; }
+    
 
     }
 }

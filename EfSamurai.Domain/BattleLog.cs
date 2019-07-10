@@ -9,11 +9,12 @@ namespace EfSamurai.Domain
 
         public BattleLog()
         {
-            BattleEvent = new HashSet<BattleEvent>();
+            BattleEvents = new HashSet<BattleEvent>();
         }
         public int Id { get; set; }
         public string Name { get; set; }
-        public virtual ICollection<BattleEvent> BattleEvent  { get; set; }
+
+        public virtual ICollection<BattleEvent> BattleEvents  { get; set; }
 
     }
 }

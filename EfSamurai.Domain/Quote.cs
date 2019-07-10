@@ -5,10 +5,12 @@ using System.Text;
 namespace EfSamurai.Domain
 {
     public class Quote
+ 
     {
+
         public int Id { get; set; }
-        public string TheQuote { get; set; }
+        public string Text { get; set; }
         public virtual Samurai Samurai { get; set; }
-        public QuoteRank QuoteRank { get; set; }
+        public QuoteStyle Style { get; set; }
     }
 }

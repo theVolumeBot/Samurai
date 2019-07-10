@@ -1,5 +1,6 @@
 ﻿using EfSamurai.Domain;
 using System;
+using System.Collections.Generic;
 
 namespace AddingToDataBase
 {
@@ -7,12 +8,23 @@ namespace AddingToDataBase
     {
         static void Main(string[] args)
         {
-            DataAccess dataAccess = new DataAccess();
-              //dataAccess.AddSamurai("mak", Haircut.Western, "Marcus");
-            //var samurai = dataAccess.GetSamuraiOnId(1);
-            var samurai = dataAccess.GetSamuraiOnName("mak");
-            dataAccess.AddQuote("The way of the sword", samurai);
-          //  dataAccess.Remove();
+
+            var dataAccess = new DataAccess();
+             dataAccess.DropDatabase();
+            dataAccess.CreateDataBase();
+            //var sam = new Samurai
+            //{
+            //    Name = "Sven",
+            //    Quotes = new List<Quote>()
+            //};
+            //dataAccess.Add(sam);
+            //dataAccess.AddAwesomeQuoteToSamurai("awesomeee", sam);
+            //dataAccess.ClearContext();
+            //Samurai result = dataAccess.FindByName("Sven");
+            //Console.WriteLine(result.Name);
+            //Console.WriteLine(result.Id);
+            //Console.WriteLine(result.Quotes.Count);
+    
         }
     }
 }

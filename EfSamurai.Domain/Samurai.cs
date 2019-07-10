@@ -8,16 +8,16 @@ namespace EfSamurai.Domain
 
         public Samurai()
         {
-            Quote = new HashSet<Quote>();
-            SamuraiBattle = new HashSet<SamuraiBattle>();
+            Quotes = new HashSet<Quote>();
+            SamuraiBattles = new HashSet<SamuraiBattle>();
         }
         public int Id { get; set; }
         public string Name { get; set; }
-        public Haircut Haircut { get; set; }
-        public string SecretIdentity { get; set; }
+        public HairStyle HairStyle { get; set; }
+        public SecretIdentity SecretIdentity { get; set; }
 
-        public virtual ICollection<Quote> Quote { get; set; }
-        public virtual ICollection<SamuraiBattle> SamuraiBattle { get; set; }
+        public virtual ICollection<Quote> Quotes { get; set; }
+        public virtual ICollection<SamuraiBattle> SamuraiBattles { get; set; }
     }
 }
 

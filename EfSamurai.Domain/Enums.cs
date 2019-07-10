@@ -5,14 +5,14 @@ using System.Text;
 namespace EfSamurai.Domain
 {
    
-       public enum QuoteRank
+       public enum QuoteStyle
         {
             Lame,
             Cheesy,
             Awesome
                 }
 
-    public enum Haircut
+    public enum HairStyle
     {
         Chonmage,
         Oicho,

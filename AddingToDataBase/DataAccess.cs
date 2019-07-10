@@ -1,14 +1,12 @@
 ﻿using EfSamurai.Data;
 using EfSamurai.Domain;
-using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace AddingToDataBase
 {
-    class DataAccess
+  public  class DataAccess
     {
         private SamuraiContext samuraiContext = new SamuraiContext();
 
@@ -18,17 +16,72 @@ namespace AddingToDataBase
             samuraiContext.SaveChanges();
         }
 
-        public Samurai GetSamuraiOnName(string name)
+        public Samurai FindByName(string name)
         {
             var samurais = samuraiContext.Samurais;
-            Samurai samurai = samurais.FirstOrDefault(a => a.Name == name);
+            Samurai samurai = samurais
+                .Include(x => x.Quotes)
+                .Include(x => x.SamuraiBattles)
+                .Include(x => x.SecretIdentity)
+                .Include(x => x.SamuraiBattles)
+                .FirstOrDefault(a => a.Name == name);
+           
             return samurai;
-       
+
         }
 
-        internal void AddQuote(string quote, Samurai samurai)
+        public Samurai FindByRealName(string name)
         {
-            samurai.Quote.Add(new Quote {TheQuote = quote, QuoteRank = QuoteRank.Cheesy, Samurai = samurai });
+            var samurais = samuraiContext.Samurais;
+            Samurai samurai = samurais
+                .Include(x => x.Quotes)
+                .Include(x => x.SamuraiBattles)
+                .FirstOrDefault(a => a.SecretIdentity.RealName == name);
+
+            return samurai;
+
+        }
+
+        public void ClearContext()
+        {
+            samuraiContext = new SamuraiContext();
+            SaveChanges();
+        }
+
+       
+
+        public void AddAwesomeQuoteToSamurai(string text, Samurai samurai)
+        {
+            samurai.Quotes.Add(new Quote { Text = text, Samurai = samurai });
+            SaveChanges();
+        }
+
+        private bool CheckIfQuoteIsTaken(string quote)
+        {
+            var quoteReturn = samuraiContext.Quotes.FirstOrDefault(a => a.Text == quote);
+            try
+            {
+                quoteReturn.GetType();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+
+        }
+        public void ChangeRealName(string name, string newRealName)
+        {
+            Samurai sam = FindByName(name);
+            sam.SecretIdentity.RealName = newRealName;
+            SaveChanges();
+        }
+
+        public void UpdateSamuraiName(string oldName, string newName)
+        {
+            Samurai sam = FindByName(oldName);
+            sam.Name = newName;
             SaveChanges();
         }
 
@@ -39,8 +92,15 @@ namespace AddingToDataBase
             SaveChanges();
         }
 
+        public void ClearDatabase()
+        {
+            DropDatabase();
+            CreateDataBase();
+            SaveChanges();
+        }
 
-        public void DropDataBase()
+   
+        public void DropDatabase()
         {
             samuraiContext.Database.EnsureDeleted();
             SaveChanges();
@@ -52,12 +112,13 @@ namespace AddingToDataBase
             SaveChanges();
         }
 
-        public void AddSamurai(string name, Haircut haircut, string secretIdentity)
+        public void Add(Samurai samurai)
         {
             var samurais = samuraiContext.Samurais;
-            samurais.Add(new Samurai { Name = name, Haircut = haircut, SecretIdentity = secretIdentity });
+            samurais.Add(samurai);
             SaveChanges();
         }
+   
 
         public Samurai GetSamuraiOnId(int id)
         {
